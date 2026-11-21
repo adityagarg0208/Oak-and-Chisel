@@ -1,0 +1,1155 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oak and Chisel — Neighborhood Carpentry &amp; Furniture Repair</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: {
+            50: 'floralwhite',
+            100: 'oldlace',
+            200: 'linen',
+            300: 'antiquewhite'
+          },
+
+          wood: {
+            mahogany: 'saddlebrown',
+            teak: 'peru',
+            dark: 'saddlebrown',
+            bark: 'maroon',
+            light: 'peru'
+          },
+
+          amberAccent: {
+            DEFAULT: 'darkorange',
+            light: 'orange',
+            soft: 'cornsilk',
+            deep: 'chocolate'
+          },
+
+          darkGray: {
+            DEFAULT: 'darkslategray',
+            light: 'dimgray',
+            muted: 'gray'
+          }
+        },
+
+        fontFamily: {
+          heading: ['Outfit', 'sans-serif'],
+          body: ['Inter', 'sans-serif']
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  :root {
+    --bg-cream: floralwhite;
+    --wood-mahogany: saddlebrown;
+    --wood-teak: peru;
+    --amber: darkorange;
+    --charcoal: darkslategray;
+  }
+    body { background-color: var(--bg-cream); color: var(--charcoal); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
+    .craft-card { transition: box-shadow 0.15s ease, border-color 0.15s ease; }
+    .craft-card:hover { box-shadow: 0 10px 25px -5px rgba(58,35,18,0.08), 0 8px 10px -6px rgba(58,35,18,0.04); }
+    .wood-badge { background: linear-gradient(135deg, rgba(92,58,33,0.08), rgba(139,90,43,0.12)); border: 1px solid rgba(139,90,43,0.22); }
+    .wood-card-gradient { background: #FFFFFF; border: 1px solid rgba(139,90,43,0.18); }
+    .wood-hero-pattern {
+      background-image: radial-gradient(#8B5A2B 0.65px, transparent 0.65px), radial-gradient(#5C3A21 0.65px, #FDFBF7 0.65px);
+      background-size: 26px 26px; background-position: 0 0, 13px 13px; opacity: 0.12;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #F2ECE1; }
+    ::-webkit-scrollbar-thumb { background: #8B5A2B; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #5C3A21; }
+    .dragover-active { border-color: #D97706 !important; background-color: #FEF3C7 !important; }
+    .task-card-selected { border: 2px solid #D97706 !important; background-color: #FFFDF9 !important; box-shadow: 0 0 0 3px rgba(217,119,6,0.2) !important; }
+    .slot-btn-selected { background-color: #5C3A21 !important; color: #FFFFFF !important; border: 2px solid #5C3A21 !important; font-weight: 700 !important; }
+    .slot-btn-selected span { color: #FEF3C7 !important; }
+    .material-card-selected { border: 2px solid #5C3A21 !important; background-color: #FFFBF5 !important; box-shadow: 0 0 0 2px rgba(92,58,33,0.15) !important; }
+    .star-btn { cursor: pointer; transition: color 0.1s; }
+    .star-btn:hover, .star-btn.active { color: #D97706 !important; }
+
+    /* Active navigation highlight */
+    nav a {
+      position: relative;
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+
+    nav a:hover {
+      background-color: #FFF0D9;
+      color: #B45309;
+    }
+
+    nav a.nav-active {
+      background-color: #FFF0D9;
+      color: #B45309 !important;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px #F2C483;
+    }
+
+    nav a.nav-active::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background-color: #D97706;
+      border-radius: 10px;
+    }
+
+  </style>
+</head>
+<body class="relative min-h-screen selection:bg-amberAccent-soft selection:text-wood-dark">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-cream-50/95 border-b border-wood-teak/10 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-wood-mahogany to-wood-teak text-white flex items-center justify-center shadow-md shadow-wood-dark/20 text-lg">
+          <i class="fa-solid fa-hammer"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-heading font-extrabold tracking-tight text-wood-dark flex items-center gap-1.5">
+            Oak and Chisel <span class="text-amberAccent text-xs px-2 py-0.5 rounded-md bg-amberAccent-soft font-body font-semibold">Artisan Guild</span>
+          </span>
+          <span class="block text-xs font-medium text-wood-light -mt-1 tracking-wider uppercase">Local Joinery &amp; Repairs</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoal">
+        <a href="#services" class="hover:text-amberAccent transition-colors">What We Fix</a>
+        <a href="#estimator" class="hover:text-amberAccent transition-colors">Instant Estimate</a>
+        <a href="#booking" class="hover:text-amberAccent transition-colors">Book Service</a>
+        <a href="#tracking" class="hover:text-amberAccent transition-colors">Order History</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#tracking" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold text-wood-dark border border-wood-teak/30 hover:bg-cream-200 transition">
+          <i class="fa-solid fa-clock-rotate-left"></i> My Orders
+        </a>
+        <a href="#booking" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-wood-mahogany text-white text-sm font-semibold hover:bg-wood-dark shadow-md shadow-wood-dark/20 transition-all duration-200">
+          <i class="fa-solid fa-calendar-check text-amberAccent"></i> Book Carpenter
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- HERO -->
+    <section class="relative pt-12 pb-20 overflow-hidden">
+      <div class="absolute inset-0 wood-hero-pattern pointer-events-none"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full wood-badge text-wood-mahogany text-xs font-semibold tracking-wide">
+              <i class="fa-solid fa-seedling text-emerald-600"></i> Warm, trusted neighborhood mistris &bull; We clean up spotless
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-wood-dark tracking-tight leading-[1.14]">
+              We fix the squeaks, wobbles, and <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-wood-teak via-amberAccent to-wood-mahogany">furniture headaches.</span>
+            </h1>
+            <p class="text-lg text-charcoal-light max-w-2xl leading-relaxed">
+              Don't discard good Sagwan or Sheesham when master hands can make it solid as new. From jammed wardrobe slides and swollen monsoon doors to flat-pack builds—our certified carpenters arrive on time with the right tools and genuine materials.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+              <a href="#booking" class="px-7 py-3.5 rounded-xl bg-wood-mahogany text-white font-semibold text-base shadow-lg shadow-wood-dark/25 hover:bg-wood-dark transition-all duration-200 flex items-center gap-3 group">
+                <span>Book a Carpenter Today</span>
+                <i class="fa-solid fa-arrow-right text-amberAccent group-hover:translate-x-1 transition-transform"></i>
+              </a>
+              <a href="#tracking" class="px-6 py-3.5 rounded-xl bg-white border border-wood-teak/30 text-wood-dark font-semibold text-base shadow-sm hover:bg-cream-100 transition-all duration-200 flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-amberAccent"></i> View Order History
+              </a>
+            </div>
+            <div class="pt-6 grid grid-cols-3 gap-4 border-t border-wood-teak/15 max-w-lg">
+              <div>
+                <span class="block text-2xl font-heading font-extrabold text-wood-dark">4.98 ★</span>
+                <span class="text-xs text-charcoal-muted font-medium">3,200+ Verified Ratings</span>
+              </div>
+              <div>
+                <span class="block text-2xl font-heading font-extrabold text-wood-dark">30 Mins</span>
+                <span class="text-xs text-charcoal-muted font-medium">Arrival Window</span>
+              </div>
+              <div>
+                <span class="block text-2xl font-heading font-extrabold text-wood-dark">100%</span>
+                <span class="text-xs text-charcoal-muted font-medium">No-Mess Guarantee</span>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-5">
+            <div class="craft-card relative rounded-3xl p-6 bg-gradient-to-br from-white via-cream-100 to-cream-200 border border-wood-teak/20 shadow-xl shadow-wood-dark/10">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-wood-teak/15">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-wood-dark">Active in your locality</span>
+                  </div>
+                  <span class="text-xs px-2.5 py-1 rounded-md bg-amberAccent/15 text-amberAccent-deep font-semibold">Master Mistri</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-white/90 border border-wood-teak/10 shadow-sm flex items-center gap-4">
+                  <div class="w-14 h-14 rounded-xl bg-cream-200 flex-shrink-0 flex items-center justify-center text-wood-mahogany text-2xl">
+                    <i class="fa-solid fa-user-check"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-heading font-bold text-wood-dark text-base">Rajesh Sharma &bull; Master Mistri</h4>
+                    <p class="text-xs text-charcoal-muted">15+ yrs restoring Sagwan &amp; Sheesham furniture across homes</p>
+                    <div class="flex items-center gap-1 text-amberAccent text-xs mt-1">
+                      <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                      <span class="text-charcoal font-semibold ml-1">5.0 (480 local reviews)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-wood-dark text-cream-50 p-4 rounded-2xl space-y-2">
+                  <div class="flex justify-between items-center text-xs font-medium">
+                    <span class="text-cream-300">Customer Satisfaction Score:</span>
+                    <span class="font-bold text-amberAccent-light text-base">99.6% (5 Stars)</span>
+                  </div>
+                  <p class="text-xs text-cream-200/80">Every repair includes clean shoe booties, genuine Fevicol SH &amp; Fischer plugs, plus post-fix warranty.</p>
+                  <a href="#services" class="block text-center w-full py-2 bg-amberAccent hover:bg-amberAccent-light text-wood-dark font-heading font-bold text-xs rounded-lg transition mt-2">
+                    Pick Tasks to Calculate Price &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES / ESTIMATOR -->
+    <section id="services" class="py-16 bg-cream-100/70 border-y border-wood-teak/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="px-3.5 py-1 rounded-full wood-badge text-wood-teak text-xs font-bold uppercase tracking-wider">What We Can Fix For You</span>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-wood-dark mt-3">Choose Your Carpentry Tasks</h2>
+          <p class="text-darkGray-muted text-sm sm:text-base mt-2">Click any item below to calculate estimated labor time and an instant transparent quote in Indian Rupees.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4" id="taskCardsContainer"></div>
+          <div class="lg:col-span-4 sticky top-24" id="estimator">
+            <div class="craft-card bg-white rounded-3xl p-6 border-2 border-wood-teak/20 shadow-xl shadow-wood-dark/10">
+              <div class="flex items-center justify-between pb-4 border-b border-wood-teak/10">
+                <h3 class="font-heading font-bold text-xl text-wood-dark flex items-center gap-2"><i class="fa-solid fa-receipt text-amberAccent"></i> Live Job Estimator</h3>
+                <span id="selectedTasksCountBadge" class="text-xs px-2.5 py-1 rounded-full bg-cream-200 text-wood-dark font-bold">0 Tasks</span>
+              </div>
+              <div id="estimatorItemsList" class="my-4 space-y-2 max-h-48 overflow-y-auto pr-1">
+                <p class="text-xs text-charcoal-muted text-center py-6 italic">No tasks selected yet. Click any card on the left to start your estimate.</p>
+              </div>
+              <div class="pt-3 border-t border-wood-teak/10 space-y-3">
+                <div>
+                  <label class="block text-xs font-bold text-charcoal uppercase tracking-wider mb-1">When would you like us to come?</label>
+                  <select id="urgencySelector" class="w-full text-xs font-semibold p-2.5 rounded-xl border border-wood-teak/30 bg-cream-50 focus:ring-2 focus:ring-amberAccent outline-none">
+                    <option value="1.0">Standard Scheduled Visit (Regular Rate)</option>
+                    <option value="1.15">Priority Next-Day Arrival (+15%)</option>
+                    <option value="1.30">Urgent Same-Day Callout (+30%)</option>
+                  </select>
+                </div>
+                <div class="p-3 rounded-xl bg-cream-100 border border-wood-teak/15 flex items-center justify-between text-xs">
+                  <div>
+                    <span class="font-bold text-wood-dark block">Carpenter Supplies Hardware</span>
+                    <span class="text-charcoal-muted text-[11px]">Fischer heavy wall plugs, star screws, Fevicol &amp; shims</span>
+                  </div>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="estimatorMaterialToggle" class="sr-only peer">
+                    <div class="w-9 h-5 bg-cream-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amberAccent"></div>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-wood-teak/10 space-y-2 text-xs">
+                <div class="flex justify-between text-charcoal-muted"><span>Estimated Labor Time:</span><span id="estDuration" class="font-bold text-wood-dark">0.0 hrs</span></div>
+                <div class="flex justify-between text-charcoal-muted"><span>Hardware &amp; Consumables:</span><span id="estMaterialsCost" class="font-bold text-wood-dark">₹0</span></div>
+                <div class="flex justify-between items-baseline pt-2 border-t border-wood-teak/20 text-base">
+                  <span class="font-heading font-bold text-wood-dark">Estimated Total:</span>
+                  <div class="text-right">
+                  <span id="estTotalPrice" class="text-2xl font-heading font-extrabold text-amberAccent-deep">0</span>
+                    <span class="block text-[10px] text-charcoal-muted">Transparent quote &bull; No surprise charges</span>
+                  </div>
+                </div>
+              </div>
+              <button id="applyEstimateToBookingBtn" class="w-full mt-5 py-3 rounded-xl bg-wood-mahogany hover:bg-wood-dark text-white text-xs font-bold uppercase tracking-wider shadow-md shadow-wood-dark/20 transition-all flex items-center justify-center gap-2">
+                <span>Transfer to Booking Form</span><i class="fa-solid fa-arrow-down text-amberAccent"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING FORM -->
+    <section id="booking" class="py-16 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="px-3.5 py-1 rounded-full wood-badge text-wood-mahogany text-xs font-bold uppercase tracking-wider">Fast 2-Minute Reservation</span>
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-wood-dark mt-3">Book Your Trusted Carpenter</h2>
+          <p class="text-charcoal-muted text-sm mt-2">Pick your date, convenient time window, and let us know what needs attention. We'll arrive fully prepared.</p>
+        </div>
+        <div class="craft-card bg-white rounded-3xl p-6 sm:p-10 border border-wood-teak/20 shadow-xl shadow-wood-dark/10">
+          <form id="carpentryBookingForm" class="space-y-8" onsubmit="event.preventDefault(); handleBookingSubmit();">
+            <!-- Step 1 -->
+            <div>
+              <h3 class="text-lg font-heading font-bold text-wood-dark flex items-center gap-2 mb-4 pb-2 border-b border-wood-teak/10">
+                <i class="fa-solid fa-house-chimney text-amberAccent"></i> 1. Where and Who Should We Ask For?
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-charcoal mb-1">Your Full Name *</label>
+                  <input type="text" id="custName" required placeholder="e.g. Ananya Deshmukh" class="w-full text-sm p-3 rounded-xl border border-wood-teak/25 bg-cream-50 focus:bg-white focus:ring-2 focus:ring-amberAccent outline-none transition">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-charcoal mb-1">Phone Number (Indian Mobile) *</label>
+                  <input type="tel" id="custPhone" required placeholder="e.g. +91 98765 43210" class="w-full text-sm p-3 rounded-xl border border-wood-teak/25 bg-cream-50 focus:bg-white focus:ring-2 focus:ring-amberAccent outline-none transition">
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-semibold text-charcoal mb-1">Flat / House No. &amp; Complete Address *</label>
+                  <input type="text" id="custAddress" required placeholder="e.g. Flat 402, Oakwood Heights, 12th Main, Indiranagar, Bengaluru" class="w-full text-sm p-3 rounded-xl border border-wood-teak/25 bg-cream-50 focus:bg-white focus:ring-2 focus:ring-amberAccent outline-none transition">
+                </div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div>
+              <h3 class="text-lg font-heading font-bold text-wood-dark flex items-center gap-2 mb-4 pb-2 border-b border-wood-teak/10">
+                <i class="fa-solid fa-calendar-days text-amberAccent"></i> 2. When Works Best for You?
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-charcoal mb-1">Service Date *</label>
+                  <input type="date" id="bookingDate" required class="w-full text-sm p-3 rounded-xl border border-wood-teak/25 bg-cream-50 focus:bg-white focus:ring-2 focus:ring-amberAccent outline-none transition">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-charcoal mb-1">Preferred Time Window *</label>
+                  <div class="grid grid-cols-3 gap-2" id="slotPickerGroup">
+                    <button type="button" data-slot="Morning (8:00 AM - 12:00 PM)" class="slot-btn py-2.5 px-2 text-xs font-semibold rounded-xl border border-wood-teak/30 bg-cream-50 hover:bg-cream-200 text-center">
+                      Morning<br><span class="text-[10px] text-charcoal-muted">8AM &ndash; 12PM</span>
+                    </button>
+                    <button type="button" data-slot="Afternoon (1:00 PM - 5:00 PM)" class="slot-btn py-2.5 px-2 text-xs font-semibold rounded-xl border border-wood-teak/30 bg-cream-50 hover:bg-cream-200 text-center">
+                      Afternoon<br><span class="text-[10px] text-charcoal-muted">1PM &ndash; 5PM</span>
+                    </button>
+                    <button type="button" data-slot="Evening (5:00 PM - 8:00 PM)" class="slot-btn py-2.5 px-2 text-xs font-semibold rounded-xl border border-wood-teak/30 bg-cream-50 hover:bg-cream-200 text-center">
+                      Evening<br><span class="text-[10px] text-charcoal-muted">5PM &ndash; 8PM</span>
+                    </button>
+                  </div>
+                  <input type="hidden" id="selectedSlot" value="Morning (8:00 AM - 12:00 PM)">
+                </div>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div>
+              <div class="flex justify-between items-center mb-3 pb-2 border-b border-wood-teak/10">
+                <h3 class="text-lg font-heading font-bold text-wood-dark flex items-center gap-2"><i class="fa-solid fa-list-check text-amberAccent"></i> 3. Selected Carpentry Tasks</h3>
+                <a href="#services" class="text-xs font-semibold text-amberAccent hover:underline">+ Manage Tasks in Estimator</a>
+              </div>
+              <div id="bookingSelectedTasksPills" class="flex flex-wrap gap-2 min-h-[42px] p-3 rounded-xl bg-cream-100 border border-wood-teak/15 items-center"></div>
+            </div>
+            <!-- Step 4 -->
+            <div>
+              <h3 class="text-lg font-heading font-bold text-wood-dark flex items-center gap-2 mb-2 pb-2 border-b border-wood-teak/10"><i class="fa-solid fa-camera text-amberAccent"></i> 4. Photos of the Furniture / Repair Area (Optional)</h3>
+              <p class="text-xs text-charcoal-muted mb-3">Upload a quick photo to help Rajesh ji bring matching hinges, teak wood stains, or exact screws.</p>
+              <div id="dropZone" class="border-2 border-dashed border-wood-teak/30 rounded-2xl p-4 sm:p-5 bg-cream-50 hover:bg-cream-100/70 transition cursor-pointer relative min-h-[115px]">
+                <input type="file" id="photoInput" accept="image/*" multiple class="hidden">
+                <div id="uploadPrompt" class="flex flex-col items-center justify-center text-center py-2 pointer-events-none">
+                  <div class="w-11 h-11 rounded-2xl bg-amberAccent/10 text-amberAccent-deep flex items-center justify-center text-xl mb-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                  </div>
+                  <p class="text-xs font-bold text-wood-dark">Drag &amp; drop photos here or <span class="text-amberAccent-deep underline">Browse Files</span></p>
+                  <p class="text-[11px] text-charcoal-muted mt-1">PNG, JPG, or WebP up to 5MB &bull; Live inline preview</p>
+                </div>
+                <div id="photosContainer" class="hidden w-full space-y-2"></div>
+              </div>
+            </div>
+            <!-- Step 5 -->
+            <div>
+              <h3 class="text-lg font-heading font-bold text-wood-dark flex items-center gap-2 mb-3 pb-2 border-b border-wood-teak/10"><i class="fa-solid fa-toolbox text-amberAccent"></i> 5. Hardware &amp; Screws Preference</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label class="cursor-pointer" id="matOptLabelCustomer" onclick="updateFormMaterialChoice('customer')">
+                  <input type="radio" name="materialOption" value="customer" checked class="peer sr-only">
+                  <div id="matOptDivCustomer" class="p-4 rounded-2xl border-2 border-wood-mahogany bg-cream-50 material-card-selected">
+                    <div class="flex items-center justify-between mb-1"><span class="font-bold text-sm text-wood-dark flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-wood-mahogany"></i> I Already Have My Own Hardware</span><span class="text-xs font-bold text-emerald-600">&#8377;0 Extra</span></div>
+                    <p class="text-xs text-charcoal-muted">I have replacement hinges, wall plugs, drawer channels, or screws ready.</p>
+                  </div>
+                </label>
+                <label class="cursor-pointer" id="matOptLabelCarpenter" onclick="updateFormMaterialChoice('carpenter')">
+                  <input type="radio" name="materialOption" value="carpenter" class="peer sr-only">
+                  <div id="matOptDivCarpenter" class="p-4 rounded-2xl border-2 border-wood-teak/20 bg-cream-50">
+                    <div class="flex items-center justify-between mb-1"><span class="font-bold text-sm text-wood-dark flex items-center gap-1.5"><i class="fa-regular fa-circle text-charcoal-muted"></i> Carpenter Brings Standard Supply</span><span class="text-xs font-bold text-amberAccent-deep">+&#8377;149 Flat</span></div>
+                    <p class="text-xs text-charcoal-muted">We'll bring genuine Fevicol SH, Fischer heavy wall plugs, star screws, and teak shims.</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <!-- Notes -->
+            <div>
+              <label class="block text-xs font-semibold text-charcoal mb-1">Helpful Notes for the Carpenter (Optional)</label>
+              <textarea id="bookingNotes" rows="2" placeholder="e.g. Main teak door catches on floor. Lift is available. Society entry through Gate 2." class="w-full text-xs p-3 rounded-xl border border-wood-teak/25 bg-cream-50 focus:bg-white focus:ring-2 focus:ring-amberAccent outline-none transition"></textarea>
+            </div>
+            <!-- Submit -->
+            <div class="p-5 rounded-2xl bg-wood-bark text-cream-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span class="text-xs text-cream-300 block">Total Estimated Quote</span>
+                <div class="flex items-baseline gap-2">
+                  <span id="formPriceSummary" class="text-3xl font-heading font-extrabold text-amberAccent-light">&#8377;0</span>
+                  <span id="formDurationSummary" class="text-xs text-cream-200">(0.0 hrs estimated)</span>
+                </div>
+                <span class="text-[11px] text-cream-300">Pay securely via UPI / Cash only after the work is completed and you're satisfied.</span>
+              </div>
+              <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amberAccent hover:bg-amberAccent-light text-wood-dark font-heading font-bold text-sm uppercase tracking-wider shadow-lg shadow-amberAccent/30 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-shield-halved"></i><span>Confirm My Reservation</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACKING & ORDER HISTORY -->
+    <section id="tracking" class="py-16 bg-cream-100/60 border-t border-wood-teak/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+
+            <span class="px-3.5 py-1 rounded-full wood-badge text-wood-dark text-xs font-bold uppercase tracking-wider">Customer Order History</span>
+            <h2 class="text-3xl font-heading font-bold text-wood-dark mt-2">Your Orders &amp; Service Tracking</h2>
+            <p class="text-charcoal-muted text-sm mt-1">Select any placed order to view complete work details, track mistri dispatch, or rate your carpenter with stars.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-xs text-charcoal-muted"></i>
+              <input type="text" id="trackingSearch" placeholder="Search by ID or Name..." class="text-xs pl-8 pr-3 py-2 rounded-xl border border-wood-teak/25 bg-white focus:ring-2 focus:ring-amberAccent outline-none w-48">
+            </div>
+            <div class="flex rounded-xl bg-cream-200 p-1 text-xs font-semibold text-charcoal" id="filterStatusGroup">
+              <button class="filter-tab px-3 py-1.5 rounded-lg bg-white shadow-sm font-bold text-wood-dark" data-filter="all">All</button>
+              <button class="filter-tab px-3 py-1.5 rounded-lg text-charcoal-muted hover:text-wood-dark" data-filter="Requested">Requested</button>
+              <button class="filter-tab px-3 py-1.5 rounded-lg text-charcoal-muted hover:text-wood-dark" data-filter="Assigned">Assigned</button>
+              <button class="filter-tab px-3 py-1.5 rounded-lg text-charcoal-muted hover:text-wood-dark" data-filter="In Progress">In Progress</button>
+              <button class="filter-tab px-3 py-1.5 rounded-lg text-charcoal-muted hover:text-wood-dark" data-filter="Completed">Completed</button>
+            </div>
+          </div>
+        </div>
+        <div id="bookingsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="noBookingsState" class="hidden text-center py-16 bg-white rounded-3xl border border-wood-teak/15 p-8">
+          <div class="w-16 h-16 mx-auto rounded-full bg-cream-200 flex items-center justify-center text-wood-teak text-2xl mb-3"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h4 class="font-heading font-bold text-wood-dark text-lg">No Matching Bookings Found</h4>
+          <p class="text-xs text-charcoal-muted max-w-sm mx-auto mt-1">Book your first carpentry service above to see live progress and craftsman dispatch updates.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-wood-dark text-cream-100 py-12 border-t border-wood-mahogany/40 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-amberAccent text-wood-dark flex items-center justify-center font-bold"><i class="fa-solid fa-hammer"></i></div><span class="text-xl font-heading font-bold text-white">Oak and Chisel</span></div>
+        <p class="text-xs text-cream-300 leading-relaxed">Neighborhood joinery and custom furniture restoration across Indian metro cities. Keeping your home wood solid and beautiful.</p>
+      </div>
+      <div>
+        <h5 class="text-xs font-bold uppercase tracking-wider text-amberAccent mb-3">Our Guarantees</h5>
+        <ul class="text-xs space-y-2 text-cream-300">
+          <li><i class="fa-solid fa-check text-amberAccent mr-1"></i> Clean House &amp; Shoe Booties</li>
+          <li><i class="fa-solid fa-check text-amberAccent mr-1"></i> Genuine Fevicol &amp; Fischer Hardware</li>
+          <li><i class="fa-solid fa-check text-amberAccent mr-1"></i> Background-Verified Master Mistris</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-xs font-bold uppercase tracking-wider text-amberAccent mb-3">Service Windows</h5>
+        <p class="text-xs text-cream-300">Morning Shift: 08:00 AM &ndash; 12:00 PM</p>
+        <p class="text-xs text-cream-300 mt-1">Afternoon Shift: 01:00 PM &ndash; 05:00 PM</p>
+        <span class="inline-block mt-2 text-[11px] text-emerald-400 font-semibold">&bull; Serving Bengaluru, Mumbai &amp; Delhi NCR</span>
+      </div>
+      <div>
+        <h5 class="text-xs font-bold uppercase tracking-wider text-amberAccent mb-3">Direct Support &amp; Help</h5>
+        <p class="text-xs text-cream-300">Helpline: +91 98200 54321</p>
+        <p class="text-xs text-cream-300 mt-1">Toll Free: 1800-266-9663</p>
+        <p class="text-xs text-cream-300 mt-1">Email: namaste@oakandchisel.in</p>
+        <div class="flex gap-3 text-amberAccent mt-3">
+          <i class="fa-brands fa-whatsapp hover:text-white cursor-pointer text-lg" title="WhatsApp Us"></i>
+          <i class="fa-brands fa-instagram hover:text-white cursor-pointer text-lg"></i>
+          <i class="fa-brands fa-facebook hover:text-white cursor-pointer text-lg"></i>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-wood-mahogany/30 flex flex-col sm:flex-row justify-between text-[11px] text-cream-300">
+      <span>&copy; 2026 Oak and Chisel Artisan Guild. All rights reserved. GST Invoice provided on completion.</span>
+    </div>
+  </footer>
+
+  <!-- CONFIRMATION MODAL -->
+  <div id="confirmationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-wood-dark/70 backdrop-blur-sm hidden transition-opacity">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-wood-teak/20 shadow-2xl relative">
+      <button onclick="closeConfirmationModal()" class="absolute top-5 right-5 text-charcoal-muted hover:text-wood-dark text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div class="text-center pb-4 border-b border-wood-teak/10">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-amberAccent-soft text-amberAccent-deep flex items-center justify-center text-2xl mb-2"><i class="fa-solid fa-circle-check"></i></div>
+        <h3 class="text-2xl font-heading font-bold text-wood-dark">You're All Booked In!</h3>
+        <p class="text-xs text-charcoal-muted mt-1">Booking Reference: <span id="modalRefId" class="font-mono font-bold text-wood-mahogany"></span></p>
+      </div>
+      <div class="py-4 space-y-3 text-xs text-charcoal">
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Homeowner:</span><span id="modalClientName" class="font-bold"></span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Arrival Window:</span><span id="modalDateTime" class="font-bold"></span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Address:</span><span id="modalAddress" class="font-bold text-right max-w-[220px] truncate"></span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Assigned Artisan:</span><span class="font-bold text-amberAccent-deep">Rajesh Sharma (Master Mistri)</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Total Estimated Quote:</span><span id="modalTotalCost" class="font-bold text-base text-wood-mahogany"></span></div>
+      </div>
+      <div class="pt-2 flex flex-col gap-2">
+        <button onclick="closeConfirmationModalAndScroll()" class="w-full py-3 rounded-xl bg-wood-mahogany hover:bg-wood-dark text-white font-bold text-xs uppercase tracking-wider transition">View in Order History &amp; Rate &rarr;</button>
+        <button onclick="window.print()" class="w-full py-2.5 rounded-xl border border-wood-teak/30 text-wood-dark font-semibold text-xs hover:bg-cream-100 transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-print"></i> Print Work Order Receipt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS & STAR RATING MODAL -->
+  <div id="detailsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-wood-dark/70 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-wood-teak/20 shadow-2xl relative">
+      <button onclick="closeDetailsModal()" class="absolute top-5 right-5 text-charcoal-muted hover:text-wood-dark text-lg"><i class="fa-solid fa-xmark"></i></button>
+      <div id="detailsModalContent"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<script>
+  /* ===================== DATA ===================== */
+  
+  const TASKS_CATALOG = [
+    {
+      id: 'door-hinge',
+      name: 'Door Hinge & Squeak Fix',
+      desc: 'Plane swollen edges, tighten sagging hinges, and adjust strike plates so doors shut smoothly.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-door-open',
+      tag: 'Most Popular'
+    },
+    {
+      id: 'shelf-install',
+      name: 'Custom Shelves & Wall Mounts',
+      desc: 'Laser-leveled floating shelves, sturdy alcove woodwork, and heavy-duty Fischer wall plugs.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-layer-group',
+      tag: 'Precision'
+    },
+    {
+      id: 'wardrobe-drawer',
+      name: 'Wardrobe Drawer Realignment',
+      desc: 'Fix stubborn slides, replace jammed telescopic channels, and straighten crooked drawer faces.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-table-cells-large',
+      tag: 'Smooth Glide'
+    },
+    {
+      id: 'furniture-assembly',
+      name: 'Flat-Pack Furniture Assembly',
+      desc: 'Skip confusing manuals. Fast, sturdy assembly for IKEA, Urban Ladder, Pepperfry, beds & desks.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-couch',
+      tag: 'Assembly'
+    },
+    {
+      id: 'wood-polishing',
+      name: 'Wood Buffing & PU Polish Touch-up',
+      desc: 'Breathe life into tired surfaces with scratch removal, PU coat buffing, and beeswax sheen.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-wand-magic-sparkles',
+      tag: 'Restoration'
+    },
+    {
+      id: 'antique-joinery',
+      name: 'Wobbly Chairs & Teak Joinery',
+      desc: 'Disassemble loose joints, clean old brittle glue, re-dowel with Fevicol, clamp tight, and reinforce.',
+      hours: 1.0,
+      basePrice: 299,
+      icon: 'fa-chair',
+      tag: 'Heirloom Care'
+    }
+  ];
+
+
+  let selectedTasks = {}, uploadedPhotos = [], materialChoice = 'customer', currentUrgencyMultiplier = 1.0;
+  const STORAGE_KEY = 'oak_chisel_bookings_data_in';
+
+  const SEED_BOOKINGS = [
+    { id: 'OC-8492', clientName: 'Priya Narayanan', phone: '+91 98450 12890', address: 'A-204, Palm Meadows, Whitefield, Bengaluru', date: '2026-11-18', slot: 'Morning (8:00 AM - 12:00 PM)', tasks: [{ id: 'door-hinge', name: 'Door Hinge & Squeak Fix', qty: 2 }], materialChoice: 'carpenter', totalPrice: 747, duration: 2.0, status: 'In Progress', technician: 'Rajesh Sharma (Master Mistri)', notes: 'Main teakwood entrance door is catching against granite floor after monsoon.', photos: [], rating: 0, reviewText: '' },
+    { id: 'OC-9104', clientName: 'Aditya Deshmukh', phone: '+91 98201 98321', address: 'Flat 901, Raheja Artesia, Worli, Mumbai', date: '2026-11-16', slot: 'Afternoon (1:00 PM - 5:00 PM)', tasks: [{ id: 'shelf-install', name: 'Custom Shelves & Wall Mounts', qty: 1 }, { id: 'wood-polishing', name: 'Wood Buffing & PU Polish Touch-up', qty: 1 }], materialChoice: 'customer', totalPrice: 1298, duration: 3.5, status: 'Completed', technician: 'Rajesh Sharma (Master Mistri)', notes: 'Solid teakwood shelves in study room & melamine polish buffing.', photos: [], rating: 5, reviewText: 'Rajesh ji arrived on time, was extremely professional, and the finish looks magnificent!' }
+  ];
+
+  /* ===================== INIT ===================== */
+  document.addEventListener('DOMContentLoaded', () => {
+    renderTaskCards();
+    initEstimatorControls();
+    initPhotoUpload();
+    initSlotPicker();
+    syncTasksToBookingForm();
+    initTrackingDashboard();
+    setDefaultBookingDate();
+  });
+
+  /* ===================== TASK CARDS ===================== */
+  function renderTaskCards() {
+    const container = document.getElementById('taskCardsContainer');
+    container.innerHTML = TASKS_CATALOG.map(task => {
+      const isSelected = !!selectedTasks[task.id], qty = selectedTasks[task.id] || 0;
+      return `
+        <div class="craft-card p-5 rounded-2xl relative cursor-pointer border ${isSelected ? 'task-card-selected' : 'wood-card-gradient'}" onclick="toggleTaskSelection('${task.id}')">
+          <div class="flex items-start justify-between gap-2">
+            <div class="w-10 h-10 rounded-xl ${isSelected ? 'bg-amberAccent text-white' : 'bg-cream-200 text-wood-mahogany'} flex items-center justify-center text-lg">
+              <i class="fa-solid ${task.icon}"></i>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${isSelected ? 'bg-amberAccent text-white' : 'bg-cream-200 text-wood-dark'}">${isSelected ? '&#10003; Selected' : task.tag}</span>
+              <div class="w-5 h-5 rounded-md border ${isSelected ? 'bg-amberAccent border-amberAccent text-white' : 'border-wood-teak/30 bg-white'} flex items-center justify-center text-xs">
+                ${isSelected ? '<i class="fa-solid fa-check"></i>' : ''}
+              </div>
+            </div>
+          </div>
+          <h4 class="font-heading font-bold text-wood-dark text-base mt-3">${task.name} ${isSelected ? '<span class="text-xs text-amberAccent-deep font-semibold">(Active)</span>' : ''}</h4>
+          <p class="text-xs text-charcoal-muted mt-1 leading-relaxed">${task.desc}</p>
+          <div class="mt-4 pt-3 border-t border-wood-teak/10 flex items-center justify-between text-xs">
+            <div><span class="font-heading font-bold text-wood-mahogany text-sm">&#8377;${task.basePrice}</span><span class="text-charcoal-muted text-[11px]"> / ~${task.hours}h</span></div>
+            ${isSelected ? `
+              <div class="flex items-center gap-2 bg-amberAccent/15 px-2 py-1 rounded-lg border border-amberAccent" onclick="event.stopPropagation()">
+                <button class="w-5 h-5 rounded bg-white text-wood-dark font-bold hover:bg-cream-200 flex items-center justify-center text-xs" onclick="adjustTaskQty('${task.id}', -1)">-</button>
+                <span class="text-xs font-bold text-wood-dark px-1">${qty}</span>
+                <button class="w-5 h-5 rounded bg-white text-wood-dark font-bold hover:bg-cream-200 flex items-center justify-center text-xs" onclick="adjustTaskQty('${task.id}', 1)">+</button>
+              </div>
+            ` : `<span class="text-amberAccent-deep font-semibold text-xs flex items-center gap-1">+ Add Task</span>`}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleTaskSelection(taskId) {
+    if (selectedTasks[taskId]) { delete selectedTasks[taskId]; showToast('Task removed from estimate', 'info'); }
+    else { selectedTasks[taskId] = 1; showToast(`Selected: ${TASKS_CATALOG.find(t => t.id === taskId).name}`, 'success'); }
+    renderTaskCards(); updateEstimator(); syncTasksToBookingForm();
+  }
+
+  function adjustTaskQty(taskId, delta) {
+    if (!selectedTasks[taskId]) return;
+    selectedTasks[taskId] += delta;
+    if (selectedTasks[taskId] <= 0) delete selectedTasks[taskId];
+    renderTaskCards(); updateEstimator(); syncTasksToBookingForm();
+  }
+
+  function getRatingDescription(rating) {
+    if (!rating) return 'Tap a star to rate';
+    const descs = ['1 Star (Needs Improvement)', '2 Stars (Fair Fix)', '3 Stars (Good Work)', '4 Stars (Very Satisfied)', '5 Stars (Outstanding Joinery!)'];
+    return descs[rating - 1] || `${rating} Stars`;
+  }
+
+  /* ===================== ESTIMATOR ===================== */
+  function initEstimatorControls() {
+    document.getElementById('urgencySelector').addEventListener('change', e => { currentUrgencyMultiplier = parseFloat(e.target.value); updateEstimator(); });
+    document.getElementById('estimatorMaterialToggle').addEventListener('change', e => { updateFormMaterialChoice(e.target.checked ? 'carpenter' : 'customer'); });
+    document.getElementById('applyEstimateToBookingBtn').addEventListener('click', () => {
+      if (Object.keys(selectedTasks).length === 0) { showToast('Please select at least one carpentry task first!', 'warning'); return; }
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+      showToast('Estimated tasks transferred to booking form!', 'success');
+    });
+  }
+
+  function updateEstimator() {
+    const itemsContainer = document.getElementById('estimatorItemsList');
+    const countBadge = document.getElementById('selectedTasksCountBadge');
+    const taskEntries = Object.entries(selectedTasks);
+    countBadge.textContent = `${taskEntries.length} Task${taskEntries.length === 1 ? '' : 's'}`;
+
+    
+
+    if (taskEntries.length === 0) {
+      itemsContainer.innerHTML = `
+        <p class="text-xs text-charcoal-muted text-center py-6 italic">
+          No tasks selected yet. Click any repair card
+          to calculate your estimated price.
+        </p>
+      `;
+
+      document.getElementById('estDuration').textContent = '0.0 hrs';
+      document.getElementById('estMaterialsCost').textContent = '₹0';
+      document.getElementById('estTotalPrice').textContent = 'Nil';
+
+      updateBookingSummaryDisplay(0, 0);
+      return;
+    }
+
+    let totalDuration = 0, baseLaborCost = 0;
+    itemsContainer.innerHTML = taskEntries.map(([id, qty]) => {
+      const task = TASKS_CATALOG.find(t => t.id === id), subtotal = task.basePrice * qty;
+      totalDuration += task.hours * qty; baseLaborCost += subtotal;
+      return `<div class="flex items-center justify-between p-2 rounded-xl bg-amberAccent/10 border border-amberAccent/30 text-xs"><div class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-wood-mahogany text-white text-[10px] font-bold flex items-center justify-center">${qty}x</span><span class="font-medium text-wood-dark truncate max-w-[130px]">${task.name}</span></div><span class="font-bold text-wood-mahogany">&#8377;${subtotal}</span></div>`;
+    }).join('');
+    const materialFee = (materialChoice === 'carpenter') ? 149 : 0;
+    const calculatedTotal = Math.round((baseLaborCost * currentUrgencyMultiplier) + materialFee);
+    document.getElementById('estDuration').textContent = `${totalDuration.toFixed(1)} hrs`;
+    document.getElementById('estMaterialsCost').textContent = `₹${materialFee}`;
+    document.getElementById('estTotalPrice').textContent = `₹${calculatedTotal}`;
+    updateBookingSummaryDisplay(calculatedTotal, totalDuration);
+  }
+
+  
+  function updateBookingSummaryDisplay(price, duration) {
+    const fp = document.getElementById('formPriceSummary');
+    const fd = document.getElementById('formDurationSummary');
+
+    if (fp) {
+      fp.textContent = Object.keys(selectedTasks).length === 0
+        ? '0'
+        : `₹${price}`;
+    }
+
+    if (fd) {
+      fd.textContent = `(${duration.toFixed(1)} hrs estimated)`;
+    }
+  }
+
+  /* ===================== SLOT PICKER ===================== */
+  function initSlotPicker() {
+    const slotBtns = document.querySelectorAll('.slot-btn'), hiddenInput = document.getElementById('selectedSlot');
+    slotBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        slotBtns.forEach(b => { b.classList.remove('slot-btn-selected'); b.classList.add('border-wood-teak/30', 'bg-cream-50'); });
+        btn.classList.add('slot-btn-selected'); btn.classList.remove('border-wood-teak/30', 'bg-cream-50');
+        hiddenInput.value = btn.getAttribute('data-slot');
+      });
+    });
+    if (slotBtns[0]) slotBtns[0].click();
+  }
+
+  function setDefaultBookingDate() {
+    const dateInput = document.getElementById('bookingDate'), t = new Date();
+    t.setDate(t.getDate() + 1);
+    const str = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+    dateInput.min = str; dateInput.value = str;
+  }
+
+  function syncTasksToBookingForm() {
+    const container = document.getElementById('bookingSelectedTasksPills'), entries = Object.entries(selectedTasks);
+    if (entries.length === 0) {
+      container.innerHTML = `<span class="text-xs text-charcoal-muted italic">No tasks selected yet. Click tasks in the selector above to automatically add them.</span>`;
+      return;
+    }
+    container.innerHTML = entries.map(([id, qty]) => {
+      const task = TASKS_CATALOG.find(t => t.id === id);
+      return `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amberAccent/15 border border-amberAccent text-xs font-bold text-wood-dark shadow-sm"><span>&#10003; ${task.name} (${qty}x)</span><button type="button" onclick="toggleTaskSelection('${id}')" class="text-charcoal-muted hover:text-red-600 font-bold ml-1">&times;</button></span>`;
+    }).join('');
+  }
+
+  /* ===================== MATERIAL CHOICE ===================== */
+  function updateFormMaterialChoice(choice) {
+    materialChoice = choice;
+    const toggle = document.getElementById('estimatorMaterialToggle');
+    if (toggle) toggle.checked = (choice === 'carpenter');
+    const divCust = document.getElementById('matOptDivCustomer'), divCarp = document.getElementById('matOptDivCarpenter');
+    if (choice === 'customer') {
+      divCust.className = 'p-4 rounded-2xl border-2 border-wood-mahogany bg-cream-50 material-card-selected';
+      divCust.querySelector('i').className = 'fa-solid fa-circle-check text-wood-mahogany';
+      divCarp.className = 'p-4 rounded-2xl border-2 border-wood-teak/20 bg-cream-50';
+      divCarp.querySelector('i').className = 'fa-regular fa-circle text-charcoal-muted';
+    } else {
+      divCarp.className = 'p-4 rounded-2xl border-2 border-wood-mahogany bg-cream-50 material-card-selected';
+      divCarp.querySelector('i').className = 'fa-solid fa-circle-check text-wood-mahogany';
+      divCust.className = 'p-4 rounded-2xl border-2 border-wood-teak/20 bg-cream-50';
+      divCust.querySelector('i').className = 'fa-regular fa-circle text-charcoal-muted';
+    }
+    updateEstimator();
+  }
+
+  /* ===================== PHOTO UPLOAD ===================== */
+  function initPhotoUpload() {
+    const dropZone = document.getElementById('dropZone'), fileInput = document.getElementById('photoInput');
+    dropZone.addEventListener('click', e => { if (e.target.closest('button') || e.target.closest('#photosContainer')) return; fileInput.click(); });
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover-active'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover-active'));
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragover-active'); if (e.dataTransfer.files) handleFiles(e.dataTransfer.files); });
+    fileInput.addEventListener('change', e => { if (e.target.files) handleFiles(e.target.files); });
+  }
+
+  function handleFiles(files) {
+    Array.from(files).forEach(file => {
+      if (!file.type.startsWith('image/')) { showToast('Please upload valid photos only', 'warning'); return; }
+      if (file.size > 5 * 1024 * 1024) { showToast('Image exceeds 5MB size limit', 'warning'); return; }
+      const reader = new FileReader();
+      reader.onload = e => { uploadedPhotos.push(e.target.result); renderPhotoPreviews(); showToast('Photo attached to booking', 'success'); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderPhotoPreviews() {
+    const prompt = document.getElementById('uploadPrompt'), container = document.getElementById('photosContainer');
+    if (uploadedPhotos.length === 0) {
+      prompt.classList.remove('hidden'); container.classList.add('hidden'); container.innerHTML = '';
+    } else {
+      prompt.classList.add('hidden'); container.classList.remove('hidden');
+      container.innerHTML = `
+        <div class="space-y-2">
+          ${uploadedPhotos.map((src, index) => `
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white border border-wood-teak/20 shadow-sm gap-3" onclick="event.stopPropagation()">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${src}" class="w-14 h-14 rounded-lg object-cover border border-wood-teak/20 flex-shrink-0" alt="Repair photo">
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 flex items-center gap-1"><i class="fa-solid fa-check"></i> Photo Attached</span>
+                    <span class="text-[10px] text-charcoal-muted font-medium">Photo #${index + 1}</span>
+                  </div>
+                  <p class="text-xs font-semibold text-wood-dark truncate mt-0.5">Furniture / Repair Area Preview</p>
+                  <p class="text-[10px] text-charcoal-muted">Ready for carpenter inspection</p>
+                </div>
+              </div>
+              <button type="button" onclick="event.stopPropagation(); removePhoto(${index});" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 hover:bg-red-50 border border-red-200 transition flex items-center gap-1 flex-shrink-0">
+                <i class="fa-solid fa-trash-can text-[11px]"></i> <span>Remove</span>
+              </button>
+            </div>`).join('')}
+        </div>
+        <div class="pt-2 flex items-center justify-between border-t border-wood-teak/10 text-xs" onclick="event.stopPropagation()">
+          <span class="text-[11px] text-charcoal-muted font-medium"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>${uploadedPhotos.length} photo${uploadedPhotos.length > 1 ? 's' : ''} attached</span>
+          <button type="button" onclick="document.getElementById('photoInput').click();" class="text-xs font-bold text-amberAccent-deep hover:text-wood-dark flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amberAccent/10 border border-amberAccent/30 hover:bg-amberAccent/20 transition">
+            <i class="fa-solid fa-plus text-xs"></i> Add Another Photo
+          </button>
+        </div>`;
+    }
+  }
+
+  function removePhoto(index) { uploadedPhotos.splice(index, 1); renderPhotoPreviews(); showToast('Photo removed', 'info'); }
+
+  /* ===================== BOOKING SUBMIT ===================== */
+  function handleBookingSubmit() {
+    const taskEntries = Object.entries(selectedTasks);
+    if (taskEntries.length === 0) { showToast('Please select at least one task before submitting!', 'warning'); document.getElementById('services').scrollIntoView({ behavior: 'smooth' }); return; }
+    const clientName = document.getElementById('custName').value.trim(), phone = document.getElementById('custPhone').value.trim(),
+          address = document.getElementById('custAddress').value.trim(), date = document.getElementById('bookingDate').value,
+          slot = document.getElementById('selectedSlot').value, notes = document.getElementById('bookingNotes').value.trim();
+    if (!clientName || !phone || !address || !date) { showToast('Please complete all required fields.', 'warning'); return; }
+    let duration = 0, baseLabor = 0;
+    const formattedTasks = taskEntries.map(([id, qty]) => {
+      const t = TASKS_CATALOG.find(x => x.id === id);
+      duration += t.hours * qty; baseLabor += t.basePrice * qty;
+      return { id: t.id, name: t.name, qty };
+    });
+    const materialFee = (materialChoice === 'carpenter') ? 149 : 0;
+    const totalPrice = Math.round((baseLabor * currentUrgencyMultiplier) + materialFee);
+    const newBooking = { id: 'OC-' + Math.floor(1000 + Math.random() * 9000), clientName, phone, address, date, slot, tasks: formattedTasks, materialChoice, totalPrice, duration, status: 'Requested', technician: 'Rajesh Sharma (Master Mistri)', notes, photos: [...uploadedPhotos], rating: 0, reviewText: '' };
+    const currentList = getStoredBookings();
+    currentList.unshift(newBooking);
+    saveStoredBookings(currentList);
+    showConfirmationModal(newBooking);
+    selectedTasks = {}; uploadedPhotos = [];
+    document.getElementById('carpentryBookingForm').reset();
+    renderPhotoPreviews(); renderTaskCards(); updateEstimator(); syncTasksToBookingForm(); setDefaultBookingDate(); renderBookings();
+    showToast(`Booking ${newBooking.id} confirmed!`, 'success');
+  }
+
+  /* ===================== STORAGE ===================== */
+  function getStoredBookings() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (!stored) { localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_BOOKINGS)); return SEED_BOOKINGS; }
+    try { return JSON.parse(stored); } catch (e) { return SEED_BOOKINGS; }
+  }
+  function saveStoredBookings(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+  /* ===================== TRACKING DASHBOARD ===================== */
+  let activeFilter = 'all', searchQuery = '';
+
+  function initTrackingDashboard() {
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => { t.classList.remove('bg-white', 'shadow-sm', 'font-bold', 'text-wood-dark'); t.classList.add('text-charcoal-muted'); });
+        tab.classList.add('bg-white', 'shadow-sm', 'font-bold', 'text-wood-dark'); tab.classList.remove('text-charcoal-muted');
+        activeFilter = tab.getAttribute('data-filter'); renderBookings();
+      });
+    });
+    document.getElementById('trackingSearch').addEventListener('input', e => { searchQuery = e.target.value.toLowerCase().trim(); renderBookings(); });
+    renderBookings();
+  }
+
+  function renderBookings() {
+    const grid = document.getElementById('bookingsGrid'), emptyState = document.getElementById('noBookingsState'), list = getStoredBookings();
+    const filtered = list.filter(b => {
+      const matchesFilter = (activeFilter === 'all') || (b.status === activeFilter);
+      const matchesSearch = !searchQuery || b.id.toLowerCase().includes(searchQuery) || b.clientName.toLowerCase().includes(searchQuery) || b.address.toLowerCase().includes(searchQuery);
+      return matchesFilter && matchesSearch;
+    });
+    if (filtered.length === 0) { grid.innerHTML = ''; emptyState.classList.remove('hidden'); return; }
+    emptyState.classList.add('hidden');
+    grid.innerHTML = filtered.map(booking => {
+      const statusIdx = getStatusIndex(booking.status), isCancelled = booking.status === 'Cancelled';
+      const hasRating = booking.rating && booking.rating > 0;
+      return `
+        <div class="craft-card bg-white rounded-2xl p-6 border border-wood-teak/15 shadow-sm hover:shadow-md transition relative cursor-pointer" onclick="viewBookingDetails('${booking.id}')">
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-wood-teak/10">
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded-md bg-wood-dark text-white">${booking.id}</span>
+                <span class="text-xs font-semibold text-charcoal-muted">${booking.date} &bull; ${booking.slot.split('(')[0]}</span>
+              </div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full ${getStatusBadgeClass(booking.status)}">${booking.status}</span>
+            </div>
+            <div>
+              <div class="flex items-center justify-between">
+                <h4 class="font-heading font-bold text-wood-dark text-base">${booking.clientName}</h4>
+                <span class="text-[10px] font-bold text-amberAccent-deep bg-amberAccent/15 px-2 py-0.5 rounded">Select Order</span>
+              </div>
+              <p class="text-xs text-charcoal-muted truncate mt-0.5"><i class="fa-solid fa-location-dot text-amberAccent mr-1"></i>${booking.address}</p>
+              <div class="flex flex-wrap gap-1 mt-2">
+                ${booking.tasks.map(t => `<span class="text-[11px] px-2 py-0.5 rounded bg-cream-200 text-wood-dark font-medium">${t.name} (${t.qty}x)</span>`).join('')}
+              </div>
+            </div>
+            ${!isCancelled ? `
+              <div class="py-2">
+                <div class="flex items-center justify-between relative text-[10px] font-semibold text-charcoal-muted mb-1">
+                  <span class="${statusIdx >= 0 ? 'text-wood-mahogany font-bold' : ''}">Requested</span>
+                  <span class="${statusIdx >= 1 ? 'text-wood-mahogany font-bold' : ''}">Assigned</span>
+                  <span class="${statusIdx >= 2 ? 'text-wood-mahogany font-bold' : ''}">In Progress</span>
+                  <span class="${statusIdx >= 3 ? 'text-wood-mahogany font-bold' : ''}">Completed</span>
+                </div>
+                <div class="w-full bg-cream-200 h-2 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-wood-teak to-amberAccent" style="width:${(statusIdx + 1) * 25}%"></div>
+                </div>
+              </div>
+            ` : `<div class="p-2 rounded-lg bg-red-50 text-red-700 text-xs text-center font-medium">This service appointment was cancelled.</div>`}
+            <div class="flex items-center justify-between text-xs pt-2 border-t border-wood-teak/10">
+              <div><span class="text-charcoal-muted block text-[10px]">Estimated Total</span><span class="font-heading font-bold text-wood-mahogany text-sm">&#8377;${booking.totalPrice}</span></div>
+              <div class="text-right"><span class="text-charcoal-muted block text-[10px]">Craftsman</span><span class="font-bold text-wood-dark text-xs">${booking.technician.split('(')[0]}</span></div>
+            </div>
+
+            <!-- Rating badge on order card -->
+            <div class="p-2.5 rounded-xl ${hasRating ? 'bg-amberAccent/10 border border-amberAccent/30' : 'bg-cream-100/70 border border-wood-teak/15'} flex items-center justify-between text-xs">
+              <span class="font-medium text-wood-dark flex items-center gap-1.5">
+                <i class="fa-solid fa-star text-amberAccent"></i>
+                ${hasRating ? `Rated: <strong class="text-wood-dark">${booking.rating}.0 / 5.0 Stars</strong>` : 'Star Rating:'}
+              </span>
+              <span class="font-bold ${hasRating ? 'text-amberAccent-deep' : 'text-wood-mahogany text-[11px] underline'}">
+                ${hasRating ? '★'.repeat(booking.rating) : 'Select to Rate Order ★'}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1" onclick="event.stopPropagation()">
+              <button onclick="viewBookingDetails('${booking.id}')" class="flex-1 py-2 rounded-lg bg-wood-mahogany hover:bg-wood-dark text-white text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-star text-amberAccent"></i> Select Order &amp; Rate ${hasRating ? `(${booking.rating} ★)` : ''}
+              </button>
+              ${!isCancelled && booking.status !== 'Completed' ? `
+                <button onclick="advanceBookingStatus('${booking.id}')" class="py-2 px-3 rounded-lg bg-cream-200 hover:bg-cream-300 text-wood-dark text-xs font-semibold transition" title="Simulate next status">
+                  <i class="fa-solid fa-forward-step mr-1 text-amberAccent-deep"></i> Next Step
+                </button>
+                <button onclick="cancelBooking('${booking.id}')" class="py-2 px-3 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold transition" title="Cancel booking">Cancel</button>
+              ` : ''}
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function getStatusIndex(status) { return ['Requested', 'Assigned', 'In Progress', 'Completed'].indexOf(status); }
+  function getStatusBadgeClass(status) {
+    switch (status) {
+      case 'Requested':  return 'bg-amberAccent-soft text-amberAccent-deep';
+      case 'Assigned':   return 'bg-blue-100 text-blue-800';
+      case 'In Progress':return 'bg-emerald-100 text-emerald-800';
+      case 'Completed':  return 'bg-stone-200 text-stone-700';
+      case 'Cancelled':  return 'bg-red-100 text-red-700';
+      default:           return 'bg-cream-200 text-charcoal';
+    }
+  }
+
+  function advanceBookingStatus(id) {
+    const list = getStoredBookings(), booking = list.find(b => b.id === id);
+    if (!booking) return;
+    const stages = ['Requested', 'Assigned', 'In Progress', 'Completed'], idx = stages.indexOf(booking.status);
+    if (idx < stages.length - 1) { booking.status = stages[idx + 1]; saveStoredBookings(list); renderBookings(); showToast(`Status updated to: ${booking.status}`, 'success'); }
+  }
+
+  function cancelBooking(id) {
+    if (!confirm(`Are you sure you want to cancel booking ${id}?`)) return;
+    const list = getStoredBookings(), booking = list.find(b => b.id === id);
+    if (booking) { booking.status = 'Cancelled'; saveStoredBookings(list); renderBookings(); showToast(`Booking ${id} has been cancelled`, 'info'); }
+  }
+
+  /* ===================== DETAILS MODAL & STAR RATING ===================== */
+  function viewBookingDetails(id) {
+    const list = getStoredBookings(), b = list.find(x => x.id === id);
+    if (!b) return;
+    const modal = document.getElementById('detailsModal'), content = document.getElementById('detailsModalContent');
+    const hasRating = b.rating && b.rating > 0;
+    content.innerHTML = `
+      <div class="text-center pb-4 border-b border-wood-teak/10">
+        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-cream-200 text-wood-dark">${b.id}</span>
+        <h3 class="text-xl font-heading font-bold text-wood-dark mt-1">Selected Order Details</h3>
+        <span class="inline-block text-xs font-bold px-2.5 py-0.5 rounded-full mt-1 ${getStatusBadgeClass(b.status)}">${b.status}</span>
+      </div>
+      <div class="py-4 space-y-2.5 text-xs text-charcoal">
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Homeowner:</span><span class="font-bold">${b.clientName} (${b.phone})</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Service Location:</span><span class="font-bold text-right">${b.address}</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Shift &amp; Timings:</span><span class="font-bold text-wood-mahogany">${b.date} &bull; ${b.slot}</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Assigned Artisan:</span><span class="font-bold text-wood-mahogany">${b.technician}</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Hardware Option:</span><span class="font-bold">${b.materialChoice === 'carpenter' ? 'Carpenter Standard Supply (+&#8377;149)' : 'Client Supplies Hardware'}</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200"><span class="text-charcoal-muted">Estimated Duration:</span><span class="font-bold">${b.duration.toFixed(1)} Hours</span></div>
+        <div class="flex justify-between py-1 border-b border-cream-200 text-sm"><span class="font-bold text-wood-dark">Total Price Quote:</span><span class="font-bold text-amberAccent-deep">&#8377;${b.totalPrice}</span></div>
+        ${b.notes ? `<div class="p-2.5 rounded-xl bg-cream-100 text-xs mt-2"><span class="font-bold text-wood-dark block mb-0.5">Special Instructions:</span><p class="text-charcoal-muted italic">${b.notes}</p></div>` : ''}
+        ${b.photos && b.photos.length > 0 ? `<div class="mt-3"><span class="font-bold text-wood-dark block text-xs mb-1.5">Attached Condition Photos:</span><div class="flex gap-2 overflow-x-auto pb-1">${b.photos.map(p => `<img src="${p}" class="w-16 h-16 rounded-lg object-cover border border-wood-teak/20 shadow-sm">`).join('')}</div></div>` : ''}
+        
+        <!-- STAR RATING SECTION (APPEARS WHEN CUSTOMER SELECTS ORDER) -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-cream-100 to-cream-50 border-2 border-amberAccent/40 mt-3 shadow-sm">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-xs text-wood-dark flex items-center gap-1.5">
+              <i class="fa-solid fa-star text-amberAccent"></i> Star Rating &amp; Feedback
+            </span>
+            <span id="orderRatingBadge" class="text-[10px] font-bold px-2 py-0.5 rounded ${hasRating ? 'bg-amberAccent text-white' : 'bg-cream-200 text-charcoal-muted'}">
+              ${hasRating ? `${b.rating}.0 / 5.0 Stars` : 'Rate Order'}
+            </span>
+          </div>
+          <p class="text-[11px] text-charcoal-muted mb-2">Rate the carpentry workmanship provided for this order:</p>
+          
+          <div class="flex items-center gap-2 text-2xl my-2" id="orderModalStarPicker">
+            ${[1, 2, 3, 4, 5].map(s => `
+              <i class="fa-solid fa-star cursor-pointer star-btn transition-colors ${s <= (b.rating || 0) ? 'text-amberAccent' : 'text-stone-300'}" 
+                 onclick="handleOrderStarClick('${b.id}', ${s})" 
+                 title="${s} Star${s > 1 ? 's' : ''}"></i>
+            `).join('')}
+            <span id="orderModalStarDesc" class="text-xs font-bold text-wood-mahogany ml-2">
+              ${getRatingDescription(b.rating)}
+            </span>
+          </div>
+
+          <div class="mt-2.5 space-y-2">
+            <textarea id="orderModalComment" rows="2" placeholder="Write your review or feedback for the carpenter (optional)..." class="w-full text-xs p-2.5 rounded-xl border border-wood-teak/25 bg-white focus:ring-2 focus:ring-amberAccent outline-none">${b.reviewText || ''}</textarea>
+            <button type="button" onclick="saveOrderRating('${b.id}')" class="w-full py-2.5 rounded-xl bg-wood-mahogany hover:bg-wood-dark text-white text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-check text-amberAccent"></i> Save Star Rating &amp; Review
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3"><button onclick="closeDetailsModal()" class="w-full py-2.5 rounded-xl border border-wood-teak/30 hover:bg-cream-100 text-wood-dark text-xs font-bold uppercase tracking-wider transition">Close Order Details</button></div>`;
+    modal.classList.remove('hidden');
+  }
+
+  function handleOrderStarClick(id, star) {
+    const list = getStoredBookings(), b = list.find(x => x.id === id);
+    if (!b) return;
+    b.rating = star;
+    saveStoredBookings(list);
+    const stars = document.querySelectorAll('#orderModalStarPicker .star-btn');
+    stars.forEach((s, idx) => {
+      if (idx + 1 <= star) {
+        s.classList.add('text-amberAccent');
+        s.classList.remove('text-stone-300');
+      } else {
+        s.classList.remove('text-amberAccent');
+        s.classList.add('text-stone-300');
+      }
+    });
+    const desc = document.getElementById('orderModalStarDesc');
+    const badge = document.getElementById('orderRatingBadge');
+    if (desc) desc.textContent = getRatingDescription(star);
+    if (badge) {
+      badge.textContent = `${star}.0 / 5.0 Stars`;
+      badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded bg-amberAccent text-white';
+    }
+    renderBookings();
+  }
+
+  function saveOrderRating(id) {
+    const list = getStoredBookings(), b = list.find(x => x.id === id);
+    if (!b) return;
+    const commentEl = document.getElementById('orderModalComment');
+    if (commentEl) b.reviewText = commentEl.value.trim();
+    if (!b.rating) b.rating = 5;
+    saveStoredBookings(list);
+    renderBookings();
+    showToast(`Rated ${b.rating} Stars for Order ${id}! Thank you!`, 'success');
+    closeDetailsModal();
+  }
+
+  function closeDetailsModal() { document.getElementById('detailsModal').classList.add('hidden'); }
+
+  /* ===================== CONFIRMATION MODAL ===================== */
+  function showConfirmationModal(b) {
+    document.getElementById('modalRefId').textContent = b.id;
+    document.getElementById('modalClientName').textContent = b.clientName;
+    document.getElementById('modalDateTime').textContent = `${b.date} • ${b.slot}`;
+    document.getElementById('modalAddress').textContent = b.address;
+    document.getElementById('modalTotalCost').textContent = `\u20B9${b.totalPrice}`;
+    document.getElementById('confirmationModal').classList.remove('hidden');
+  }
+  function closeConfirmationModal() { document.getElementById('confirmationModal').classList.add('hidden'); }
+  function closeConfirmationModalAndScroll() { closeConfirmationModal(); document.getElementById('tracking').scrollIntoView({ behavior: 'smooth' }); }
+
+  /* ===================== TOAST ===================== */
+  function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer'), toast = document.createElement('div');
+    let icon = 'fa-info-circle', border = 'border-wood-teak/30', iconColor = 'text-wood-teak';
+    if (type === 'success') { icon = 'fa-circle-check'; border = 'border-emerald-500/40'; iconColor = 'text-emerald-600'; }
+    else if (type === 'warning') { icon = 'fa-triangle-exclamation'; border = 'border-amberAccent'; iconColor = 'text-amberAccent'; }
+    toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-white/95 backdrop-blur-md shadow-xl border ${border} text-xs font-semibold text-charcoal pointer-events-auto transition-all duration-300 transform translate-y-3 opacity-0`;
+    toast.innerHTML = `<i class="fa-solid ${icon} ${iconColor} text-sm"></i><span>${message}</span>`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.remove('translate-y-3', 'opacity-0'));
+    setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3500);
+  }
+
+  /* Highlight selected navigation section */
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+  function highlightNavigation(sectionId) {
+    navLinks.forEach(link => {
+      const targetId = link.getAttribute('href').substring(1);
+      const isActive = targetId === sectionId;
+
+      link.classList.toggle('nav-active', isActive);
+
+      if (isActive) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      highlightNavigation(link.getAttribute('href').substring(1));
+    });
+  });
+
+  const observedSections = ['services', 'estimator', 'booking', 'tracking'];
+
+  const sectionObserver = new IntersectionObserver(entries => {
+    const visibleSections = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+    if (visibleSections.length > 0) {
+      highlightNavigation(visibleSections[0].target.id);
+    }
+  }, {
+    rootMargin: '-100px 0px -35% 0px',
+    threshold: [0, 0.25, 0.5, 0.75, 1]
+  });
+  
+  observedSections.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) sectionObserver.observe(section);
+  });
+
+  if (window.location.hash) {
+    highlightNavigation(window.location.hash.substring(1));
+  }
+</script>
+</body>
+</html>
